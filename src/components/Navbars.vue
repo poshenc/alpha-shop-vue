@@ -1,7 +1,7 @@
 <template>
   <nav class="header-nav">
     <a href="#" class="nav-brand">
-      <img src="https://i.imgur.com/BlJvquE.png" class="ac-logo" />
+      <img src="./../assets/AClogo.png" class="ac-logo" />
     </a>
 
     <div class="nav-left">

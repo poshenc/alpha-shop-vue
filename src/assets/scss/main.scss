@@ -74,6 +74,7 @@ input:invalid {
 }
 
 /* basic setting */
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans+TC:400,700&display=swap&subset=chinese-traditional");
 $body-bg: #f8f7fc;
 $body-color: #18253d;
 $white: #fff;
@@ -361,4 +362,35 @@ body {
         height: 24px;
      }
   }
+
+    
+    .footer-container{
+      width: 100%;
+      height: 284px;
+      justify-content: space-between;
+      display: flex;
+      
+      .footer-logo{
+        width: 175.4px;
+        height: 31px;
+        margin: auto 0;
+      }
+
+      .footer-column {
+        font-size: 24px;
+        margin-top: 64px;
+        font-weight: bold;
+
+        .footer-list{
+          margin-top: 15px;
+          .footer-item{
+            color: $dark-gray;
+            font-weight: normal;
+            font-size: 16px;
+            margin: 8px 0;
+          }
+        }
+      }
+    }
+  
 }
