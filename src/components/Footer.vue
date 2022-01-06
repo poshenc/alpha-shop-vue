@@ -34,7 +34,9 @@
         <ul class="footer-list">
           <li class="footer-item">+886 02 28914856</li>
           <li class="footer-item">
-            <i class="fab fa-facebook-f"></i>
+            <i class="footer-icon fab fa-facebook-f"></i>
+            <i class="footer-icon fab fa-instagram"></i>
+            <i class="footer-icon fab fa-whatsapp"></i>
           </li>
         </ul>
       </div>

@@ -102,6 +102,14 @@ $sizes: (
   }
 }
 
+@mixin getStepNums($num) {
+  @for $i from 1 through $num {
+    &:nth-child(#{$i}) .circle-container::after {
+      content: "#{$i}";
+    }
+  }
+}
+
 $spacer: 1rem;
 $spacers: (
   0: 0,
@@ -388,9 +396,85 @@ body {
             font-weight: normal;
             font-size: 16px;
             margin: 8px 0;
+
+            .footer-icon {
+              margin-right: 25px;
+            }
           }
         }
       }
     }
+
+    .step-panel {      
+      margin: 30px 0;
+
+      .stepper-container {
+        display: grid;
+        grid-template-columns: 2fr 2fr 1fr;
+        margin: 30px 0;
+
+        .step-part {
+          display: flex;
+          @include getStepNums(3);
+
+          .step {
+            display: flex;      
+            .circle-container {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 36px;
+              width: 36px;
+              background-color: white;
+              border-radius: 50%;
+              color: $gray;
+              border: 1px $gray solid;
+              font-size: 15px;
+              font-weight: bold;
+              margin-right: 10px;
+            }
+
+
+            .label-container {
+              margin: auto;
+              color: $gray;
+              font-size: 16px;
+            }
+
+            &.checked, &.active {
+              .circle-container {
+                background-color: $black;
+                color: white;
+              }
+              .label-container {
+                color: black;
+              }
+            }
+
+            &.checked .circle-container::after {
+                content: "\2714";
+              }
+
+      
+          }
+
+          .connect-line {
+            flex: 1;
+            height: 2px;
+            background-color: $gray;
+            margin: 18px 10% 0 10%;
+            width: 50%;
+           }
+        
+        }
+
+        
+
+      }
+    }
+
+    
+
+    
   
 }
