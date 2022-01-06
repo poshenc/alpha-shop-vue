@@ -1,7 +1,7 @@
 <template>
   <div id="alpha-shop">
-    <!--導覽列-->
     <Navbars />
+    <!--導覽列-->
 
     <!--Modal-->
 

@@ -326,6 +326,20 @@ body {
 
 /********* 電腦版樣式 *********/
 @media screen and (min-width: 768px) {
+
+  .main-container{
+      padding: 0 20px;
+      display: flex;
+
+    .right-content {
+      width: 45%;
+    }
+    
+    .left-content {
+      width: 55%;
+      padding-right: 40px;
+    }
+  }
   
   .header-nav {
     display: flex;
@@ -346,7 +360,7 @@ body {
     
     .nav-left {
       .nav-list {
-        display: flex;
+                display: flex;
         flex-direction: row;
       }
     }
@@ -410,7 +424,7 @@ body {
 
       .stepper-container {
         display: grid;
-        grid-template-columns: 2fr 2fr 1fr;
+        grid-template-columns: 2fr 2fr minmax(110px, 1fr);
         margin: 30px 0;
 
         .step-part {
@@ -472,9 +486,6 @@ body {
 
       }
     }
-
-    
-
     
   
 }
