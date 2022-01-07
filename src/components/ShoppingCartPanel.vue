@@ -4,7 +4,7 @@
     <div class="cart-list">
       <div v-for="item in cartItems" :key="item.id" class="cart-item">
         <div class="item-img">
-          <img :src="item.img" alt="" />
+          <img :src="item.imageUrls.default" alt="" />
         </div>
         <div class="item-panel">
           <div class="item-count">
@@ -32,7 +32,9 @@
         <hr />
         <div class="total-cost">
           <span>運費</span>
-          <span class="strong">免費</span>
+          <span class="strong">
+            {{ delivery === "0" || delivery === 0 ? "免運費" : "$" + delivery }}
+          </span>
         </div>
         <hr />
         <div class="total-cost">
@@ -54,15 +56,19 @@ export default {
       type: Array,
       required: true,
     },
+    delivery: {
+      type: [String, Number],
+      requried: true,
+    },
   },
   data() {
     return {
       cartItems: [],
-      totalCost: 0,
     };
   },
   created() {
     this.fetchCartItems();
+    this.calTotalCost();
   },
   methods: {
     fetchCartItems() {
@@ -84,6 +90,7 @@ export default {
         const itemCost = item.amount * item.price;
         this.totalCost += itemCost;
       });
+      this.totalCost += Number(this.delivery);
     },
   },
   filters: {
@@ -93,6 +100,13 @@ export default {
   },
   watch: {
     cartItems: {
+      handler: function () {
+        this.calTotalCost();
+      },
+      immediate: true,
+      deep: true,
+    },
+    delivery: {
       handler: function () {
         this.calTotalCost();
       },

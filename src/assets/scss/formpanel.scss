@@ -1,10 +1,33 @@
 @import "./main.scss";
 
-#a-form {
-input, select {
+#a-form, #b-form {
+input {
+          @extend %input-style;
+
+          &[type="radio"] {
+            -webkit-appearance: none;
+            width: 4px;
+            height: 4px;
+            margin: auto 0;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 8px;
+            border: 1px solid $black;
+              &:hover,
+              &:focus {
+                border: 1px solid $dark-gray;
+              }
+              &:checked {
+                box-shadow: 0 0 0 4px $black inset;
+              }
+          }
+  }
+
+select {
           @extend %input-style;
   }
 }
+
 
 
 @media screen and (min-width: 760px) {

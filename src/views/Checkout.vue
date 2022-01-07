@@ -3,10 +3,17 @@
     <div class="main-container">
       <div class="left-content">
         <StepPanel :formStep="user.formStep" />
+        <!-- <FormPanelStep2
+          :initial-user="user"
+          @after-delivery-submit="afterDeliverySubmit"
+        /> -->
         <FormPanelStep3 />
       </div>
       <div class="right-content">
-        <ShoppingCartPanel :initial-cartitems="cartItems" />
+        <ShoppingCartPanel
+          :initial-cartitems="cartItems"
+          :delivery="user.deliveryFee"
+        />
       </div>
     </div>
   </div>
@@ -23,7 +30,7 @@ export default {
   name: "Checkout",
   components: {
     StepPanel,
-    //FormPanelStep1,
+    // FormPanelStep1,
     // FormPanelStep2,
     FormPanelStep3,
     ShoppingCartPanel,
@@ -31,13 +38,17 @@ export default {
   data() {
     return {
       user: {
-        formStep: "",
+        formStep: 1,
+        deliveryFee: 0,
       },
       cartItems: [
         {
           id: 1,
           name: "周董2022限量 PhntaBear",
-          img: "/img/nft1.c11d59d9.jpeg",
+          img: "../assets/nft1.jpeg",
+          imageUrls: {
+            default: require("../assets/nft1.jpeg"),
+          },
           price: 3999,
           amount: 1,
         },
@@ -45,11 +56,17 @@ export default {
           id: 2,
           name: "聯名2022限量 EzekBear",
           img: "/img/nft2.ed4cc324.jpeg",
+          imageUrls: {
+            default: require("../assets/nft2.jpeg"),
+          },
           price: 1299,
           amount: 2,
         },
       ],
     };
+  },
+  methods: {
+    afterDeliverySubmit() {},
   },
 };
 </script>
