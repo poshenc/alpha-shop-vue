@@ -2,22 +2,31 @@
   <div class="cart-panel">
     <h2>購物車</h2>
     <div class="cart-list">
-      <div class="cart-item">
+      <div v-for="item in cartItems" :key="item.id" class="cart-item">
         <div class="item-img">
-          <img src="../assets/jeans1.jpeg" alt="" />
+          <img :src="item.img" alt="" />
         </div>
         <div class="item-panel">
           <div class="item-count">
-            <p class="item-name">破壞補丁修身牛仔褲</p>
+            <p class="item-name">{{ item.name }}</p>
             <div class="count">
-              <div class="minus-circle">-</div>
-              <div class="item-num">2</div>
-              <div class="plus-circle">+</div>
+              <div
+                class="minus-circle"
+                @click.prevent.stop="reduceAmount(item)"
+              ></div>
+              <div class="item-num">{{ item.amount }}</div>
+              <div
+                class="plus-circle"
+                @click.prevent.stop="addAmount(item)"
+              ></div>
             </div>
           </div>
         </div>
-        <span class="item-cost">$3,999</span>
+        <span class="item-cost">{{
+          item.price.toLocaleString() | dollarSign
+        }}</span>
       </div>
+
       <!--購物籃最下方-->
       <div class="cart-cost">
         <hr />
@@ -28,9 +37,68 @@
         <hr />
         <div class="total-cost">
           <span>小計</span>
-          <span class="strong">$5,298</span>
+          <span class="strong">{{
+            totalCost.toLocaleString() | dollarSign
+          }}</span>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  name: "ShoppingCartPanel",
+  props: {
+    initialCartitems: {
+      type: Array,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      cartItems: [],
+      totalCost: 0,
+    };
+  },
+  created() {
+    this.fetchCartItems();
+  },
+  methods: {
+    fetchCartItems() {
+      this.cartItems = this.initialCartitems;
+    },
+    addAmount(item) {
+      item.amount += 1;
+    },
+    reduceAmount(item) {
+      if (item.amount > 1) {
+        return (item.amount -= 1);
+      } else {
+        this.cartItems = this.cartItems.filter((_item) => _item.id !== item.id);
+      }
+    },
+    calTotalCost() {
+      this.totalCost = 0;
+      this.cartItems.map((item) => {
+        const itemCost = item.amount * item.price;
+        this.totalCost += itemCost;
+      });
+    },
+  },
+  filters: {
+    dollarSign(value) {
+      return "$ " + value;
+    },
+  },
+  watch: {
+    cartItems: {
+      handler: function () {
+        this.calTotalCost();
+      },
+      immediate: true,
+      deep: true,
+    },
+  },
+};
+</script>

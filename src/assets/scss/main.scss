@@ -324,6 +324,40 @@ body {
 /* style start */
 
 
+.plus-circle, .minus-circle {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: $gray;
+  cursor: pointer;
+  display:inline-block;
+  text-align:center;
+  &:hover {
+    background-color: $dark-gray;
+    color: white;
+  }
+}
+
+.minus-circle {
+  &::after {
+    content: "-";    
+  }
+}
+
+.plus-circle {
+  &::after {
+    content: '+';
+  }
+}
+
+.item-num {
+  margin: 0 10px;
+  padding: 0 25px;
+  border: 1px solid $gray;
+  border-radius: 8px;
+}
+
+
 /********* 電腦版樣式 *********/
 @media screen and (min-width: 768px) {
 
