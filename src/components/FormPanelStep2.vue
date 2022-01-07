@@ -12,7 +12,7 @@
                   name="fee"
                   value="0"
                   class="delivery-check"
-                  v-model="user.deliveryFee"
+                  v-model="delivery"
                 />
                 <div class="delivery-description">
                   <span class="delivery-title">標準運送</span>
@@ -29,7 +29,7 @@
                   name="fee"
                   value="500"
                   class="delivery-check"
-                  v-model="user.deliveryFee"
+                  v-model="delivery"
                 />
                 <div class="delivery-description">
                   <span class="delivery-title">DHL貨運</span>
@@ -42,11 +42,17 @@
         </div>
         <hr />
         <div class="button-panel">
-          <button type="submit" class="btn btn-primary">下一步</button>
           <button
             type="submit"
             class="btn btn-primary"
-            @click.stop.prevent="nextStep"
+            @click.stop.prevent="NextStep"
+          >
+            下一步
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            @click.stop.prevent="LastStep"
           >
             上一步
           </button>
@@ -68,15 +74,38 @@ export default {
       type: Object,
       required: true,
     },
+    initialDelivery: {
+      type: [String, Number],
+      required: true,
+    },
   },
   data() {
     return {
-      user: this.initialUser,
+      // user: this.initialUser,
+      delivery: this.initialDelivery,
     };
   },
   methods: {
-    nextStep() {
-      this.$emit("after-delivery-submit");
+    NextStep() {
+      this.$emit("increase-form-step");
+      this.$router.push({ name: "Payment" });
+      // this.$emit("after-delivery-submit");
+    },
+    LastStep() {
+      this.$emit("decrease-form-step");
+      this.$router.push({ name: "Address" });
+    },
+    handleDelivery() {
+      this.$emit("handle-delivery", this.delivery);
+    },
+  },
+  watch: {
+    delivery: {
+      handler: function () {
+        this.handleDelivery();
+      },
+      immediate: true,
+      deep: true,
     },
   },
 };

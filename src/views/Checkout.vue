@@ -2,17 +2,17 @@
   <div>
     <div class="main-container">
       <div class="left-content">
-        <StepPanel :formStep="user.formStep" />
-        <!-- <FormPanelStep2
+        <StepPanel :formStep="formStep" />
+        <router-view
           :initial-user="user"
-          @after-delivery-submit="afterDeliverySubmit"
-        /> -->
-        <FormPanelStep3 />
+          :initial-delivery="delivery"
+          @handle-delivery="handleDelivery"
+        />
       </div>
       <div class="right-content">
         <ShoppingCartPanel
           :initial-cartitems="cartItems"
-          :delivery="user.deliveryFee"
+          :delivery="delivery"
         />
       </div>
     </div>
@@ -21,25 +21,29 @@
 
 <script>
 import StepPanel from "../components/StepPanel.vue";
-import FormPanelStep1 from "../components/FormPanelStep1.vue";
-import FormPanelStep2 from "../components/FormPanelStep2.vue";
-import FormPanelStep3 from "../components/FormPanelStep3.vue";
 import ShoppingCartPanel from "../components/ShoppingCartPanel.vue";
 
 export default {
   name: "Checkout",
   components: {
     StepPanel,
-    // FormPanelStep1,
-    // FormPanelStep2,
-    FormPanelStep3,
     ShoppingCartPanel,
   },
   data() {
     return {
+      formStep: 1,
+      delivery: 0,
       user: {
-        formStep: 1,
-        deliveryFee: 0,
+        gender: "",
+        name: "",
+        phone: "",
+        email: "",
+        district: "",
+        address: "",
+        cardHolder: "",
+        cardNumber: "",
+        cardDate: "",
+        cardCVC: "",
       },
       cartItems: [
         {
@@ -65,8 +69,25 @@ export default {
       ],
     };
   },
+  created() {
+    this.nowStep();
+  },
+  updated() {
+    this.nowStep();
+  },
   methods: {
-    afterDeliverySubmit() {},
+    nowStep() {
+      if (this.$route.name === "Address") {
+        this.formStep = 1;
+      } else if (this.$route.name === "Delivery") {
+        this.formStep = 2;
+      } else if (this.$route.name === "Payment") {
+        this.formStep = 3;
+      }
+    },
+    handleDelivery(fee) {
+      this.delivery = fee;
+    },
   },
 };
 </script>

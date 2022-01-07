@@ -33,7 +33,11 @@
         <div class="total-cost">
           <span>運費</span>
           <span class="strong">
-            {{ delivery === "0" || delivery === 0 ? "免運費" : "$" + delivery }}
+            {{
+              this.delivery === "0" || this.delivery === 0
+                ? "免運費"
+                : "$" + this.delivery
+            }}
           </span>
         </div>
         <hr />
