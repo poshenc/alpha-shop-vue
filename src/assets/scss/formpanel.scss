@@ -30,7 +30,6 @@ select {
 
 
 
-@media screen and (min-width: 760px) {
   #a-form {
       
 
@@ -151,7 +150,11 @@ select {
   }
   
 
-
-
-
-}
+  
+  @media screen and (max-width: 840px) {
+    #b-form {
+      .form-content {
+        height: 250px;
+      }
+    } 
+  }

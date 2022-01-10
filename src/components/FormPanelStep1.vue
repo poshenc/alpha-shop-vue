@@ -4,7 +4,7 @@
       <form id="a-form">
         <div class="form-content">
           <h2>寄送地址</h2>
-          <div class="form-row">
+          <div class="form-row form-row-1">
             <div class="gender">
               <label for="gender">稱謂</label>
               <div class="select-wrapper">
@@ -82,6 +82,8 @@
 </style>
 
 <script>
+const Swal = require("sweetalert2");
+
 export default {
   name: "FormPanelStep1",
   props: {
@@ -97,6 +99,16 @@ export default {
   },
   methods: {
     NextStep() {
+      const { gender, name, phone, email, district, address } = this.user;
+      if (!gender || !name || !phone || !email || !district || !address) {
+        Swal.fire({
+          title: "注意!",
+          text: "請確認所有欄位皆已填寫",
+          icon: "warning",
+          confirmButtonText: "Cool",
+        });
+        return;
+      }
       this.$emit("increase-form-step");
       this.$router.push({ name: "Delivery" });
     },

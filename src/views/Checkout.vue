@@ -71,6 +71,7 @@ export default {
   },
   created() {
     this.nowStep();
+    this.createStorage();
   },
   updated() {
     this.nowStep();
@@ -87,6 +88,22 @@ export default {
     },
     handleDelivery(fee) {
       this.delivery = fee;
+    },
+    createStorage() {
+      this.user = {
+        ...this.user,
+        ...JSON.parse(localStorage.getItem("storedData")),
+      };
+    },
+  },
+  watch: {
+    user: {
+      handler: function () {
+        console.log("watching");
+        localStorage.setItem("storedData", JSON.stringify(this.user));
+      },
+      immediate: true,
+      deep: true,
     },
   },
 };

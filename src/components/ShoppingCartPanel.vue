@@ -53,6 +53,8 @@
 </template>
 
 <script>
+const Swal = require("sweetalert2");
+
 export default {
   name: "ShoppingCartPanel",
   props: {
@@ -85,7 +87,22 @@ export default {
       if (item.amount > 1) {
         return (item.amount -= 1);
       } else {
-        this.cartItems = this.cartItems.filter((_item) => _item.id !== item.id);
+        Swal.fire({
+          title: "商品將移除",
+          text: "確定將此商品移除購物車?",
+          icon: "warning",
+          showCancelButton: true,
+          cancelButtonColor: "#3085d6",
+          cancelButtonText: "保留商品",
+          confirmButtonColor: "#d33",
+          confirmButtonText: "確認刪除",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.cartItems = this.cartItems.filter(
+              (_item) => _item.id !== item.id
+            );
+          }
+        });
       }
     },
     calTotalCost() {
